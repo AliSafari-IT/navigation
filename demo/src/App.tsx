@@ -15,6 +15,7 @@ import { CountryLanguageSelector } from "@asafarim/country-language-selector";
 import { navItems, accountDropdownItems } from "./data";
 import {
   AvatarTrigger,
+  CodeBlock,
   Logo,
   NotificationBell,
   ThemeToggle,
@@ -44,6 +45,191 @@ const renderLink: RenderLink = ({ item, children }) => {
     </Link>
   );
 };
+
+/* ──────────────────────────────────────────────────────────
+ * Code snippets for each demo section
+ * ────────────────────────────────────────────────────────── */
+const CODE_1 = `\
+<AppNavbar
+  logo={<Logo />}
+  navItems={navItems.slice(0, 4)}
+  responsiveMode="always-expanded"
+  bordered={false}
+/>`;
+
+const CODE_2 = `\
+<AppNavbar
+  logo={<Logo />}
+  navItems={navItems.slice(0, 4)}
+  responsiveMode="always-expanded"
+  countryLangSelector={<CountryLanguageSelector />}
+  themeToggler={<ThemeToggle />}
+  actions={
+    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+      <NotificationBell />
+      <AppNavDropdown
+        trigger={<AvatarTrigger />}
+        items={accountDropdownItems}
+        align="end"
+        ariaLabel="Account menu"
+      />
+    </div>
+  }
+  bordered={false}
+/>`;
+
+const CODE_3 = `\
+const [roles, setRoles] = useState<string[]>([]);
+const [permissions, setPermissions] = useState<string[]>([]);
+
+// navItems with requiredRoles / permissions fields:
+// { id: "admin", label: "Admin", requiredRoles: ["admin"] }
+// { id: "billing", label: "Billing", permissions: ["billing:read"] }
+
+<AppNavbar
+  logo={<Logo />}
+  navItems={filterNavByRoles(navItems, roles, permissions)}
+  responsiveMode="always-expanded"
+  bordered={false}
+/>`;
+
+const CODE_4 = `\
+import { Link, useLocation } from "react-router-dom";
+import { NavProvider, AppNavbar, type RenderLink } from "@asafarim/navigation";
+
+const renderLink: RenderLink = ({ item, children }) => {
+  if (item.external || /^https?:\\/\\//.test(item.href ?? ""))
+    return <a href={item.href} target="_blank" rel="noopener noreferrer">{children}</a>;
+  return <Link to={item.href!}>{children}</Link>;
+};
+
+// NavProvider sets currentPath + renderLink once for all descendants
+<NavProvider currentPath={pathname} renderLink={renderLink}>
+  <AppNavbar
+    logo={<Logo />}
+    navItems={navItems}
+    responsiveMode="always-expanded"
+    bordered={false}
+  />
+</NavProvider>`;
+
+const CODE_5 = `\
+<AppNavbar
+  logo={<Logo />}
+  navItems={navItems.slice(0, 5)}
+  responsiveMode="always-expanded"
+  bordered={false}
+  renderItem={({ item, active }) => (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "0.375rem",
+        padding: "0.375rem 0.75rem",
+        borderRadius: 6,
+        background: active ? "var(--accent-soft)" : "transparent",
+        color: active ? "var(--accent)" : "inherit",
+        fontWeight: active ? 600 : 400,
+        fontSize: "0.875rem",
+      }}
+    >
+      {item.label}
+      {item.external && <span className="demo-tag">ext</span>}
+      {active && <span aria-hidden="true">✓</span>}
+    </span>
+  )}
+/>`;
+
+const CODE_6 = `\
+const [open, setOpen] = useState(false);
+const [side, setSide] = useState<"left" | "right">("left");
+
+<button onClick={() => setOpen(true)}>Open drawer</button>
+
+<AppDrawer
+  open={open}
+  onOpenChange={setOpen}
+  navItems={navItems}
+  logo={<Logo />}
+  side={side}
+  footer={<small>Demo footer</small>}
+/>`;
+
+const CODE_7 = `\
+<AppSidebar
+  logo={<Logo />}
+  navItems={navItems}
+  footer={<small>v0.2.0 · MIT</small>}
+/>`;
+
+const CODE_8 = `\
+// collapsible enables the toggle button
+// rail renders icons-only when collapsed
+<AppSidebar
+  logo={<Logo compact />}
+  navItems={navItems}
+  collapsible
+  rail
+  defaultCollapsed={false}
+/>`;
+
+const CODE_9 = `\
+// AppNavDropdown works standalone — no AppNavbar needed
+<AppNavDropdown
+  trigger={<span>Account ▾</span>}
+  items={accountDropdownItems}
+  align="start"
+  ariaLabel="Account"
+/>`;
+
+const CODE_10 = `\
+// AppNavMenu is the shared primitive inside Navbar / Sidebar / Drawer
+<AppNavMenu
+  items={navItems.slice(0, 5)}
+  orientation="vertical"
+/>`;
+
+const CODE_11 = `\
+// Wrap once at the root — all navigation components
+// automatically inherit currentPath, renderLink, and user context
+<NavProvider
+  currentPath={pathname}
+  renderLink={renderLink}
+  userRoles={roles}
+  userPermissions={permissions}
+>
+  <AppNavbar logo={<Logo />} navItems={navItems} />
+  <AppSidebar navItems={navItems} />
+  <AppDrawer open={open} onOpenChange={setOpen} navItems={navItems} />
+</NavProvider>`;
+
+const CODE_12 = `\
+<AppNavbar
+  logo={<Logo />}
+  navItems={[
+    { id: "home", label: "Home", href: "/" },
+    {
+      id: "products",
+      label: "Products",
+      children: [
+        { id: "p-list", label: "All products", href: "/products" },
+        { id: "p-new", label: "Launch", href: "/products/new", badge: "β" },
+      ],
+    },
+    { id: "pricing", label: "Pricing", href: "/pricing" },
+  ]}
+  responsiveMode="always-expanded"
+  countryLangSelector={<CountryLanguageSelector />}
+  themeToggler={<ThemeToggle />}
+  actions={
+    <AppNavDropdown
+      trigger={<AvatarTrigger />}
+      items={accountDropdownItems}
+      align="end"
+    />
+  }
+  bordered={false}
+/>`;
 
 /* ──────────────────────────────────────────────────────────
  * App
@@ -101,6 +287,7 @@ export function App() {
               bordered={false}
             />
           </div>
+          <CodeBlock code={CODE_1} />
         </section>
 
         {/* 2 */}
@@ -131,6 +318,7 @@ export function App() {
               bordered={false}
             />
           </div>
+          <CodeBlock code={CODE_2} />
         </section>
 
         {/* 3 */}
@@ -173,6 +361,7 @@ export function App() {
               bordered={false}
             />
           </div>
+          <CodeBlock code={CODE_3} />
         </section>
 
         {/* 4 */}
@@ -194,6 +383,7 @@ export function App() {
           <p style={{ marginTop: "0.5rem" }}>
             Current pathname: <code>{pathname}</code>
           </p>
+          <CodeBlock code={CODE_4} />
         </section>
 
         {/* 5 */}
@@ -230,6 +420,7 @@ export function App() {
               )}
             />
           </div>
+          <CodeBlock code={CODE_5} />
         </section>
 
         {/* 6 */}
@@ -240,6 +431,7 @@ export function App() {
             focus trap, body-scroll lock, Escape close, and backdrop click.
           </p>
           <DrawerDemo />
+          <CodeBlock code={CODE_6} />
         </section>
 
         {/* 7 */}
@@ -264,6 +456,7 @@ export function App() {
               </p>
             </main>
           </div>
+          <CodeBlock code={CODE_7} />
         </section>
 
         {/* 8 */}
@@ -288,6 +481,7 @@ export function App() {
               </p>
             </main>
           </div>
+          <CodeBlock code={CODE_8} />
         </section>
 
         {/* 9 */}
@@ -305,6 +499,7 @@ export function App() {
               ariaLabel="Account"
             />
           </div>
+          <CodeBlock code={CODE_9} />
         </section>
 
         {/* 10 */}
@@ -318,6 +513,7 @@ export function App() {
           <div className="demo-frame" style={{ padding: "0.75rem", maxWidth: 320 }}>
             <AppNavMenu items={navItems.slice(0, 5)} orientation="vertical" />
           </div>
+          <CodeBlock code={CODE_10} />
         </section>
 
         {/* 11 */}
@@ -334,6 +530,7 @@ export function App() {
               {`<NavProvider currentPath={pathname} renderLink={renderLink} userRoles={roles} userPermissions={perms}>`}
             </code>
           </div>
+          <CodeBlock code={CODE_11} />
         </section>
 
         {/* 12 */}
@@ -375,6 +572,7 @@ export function App() {
               bordered={false}
             />
           </div>
+          <CodeBlock code={CODE_12} />
         </section>
 
         <footer style={{ marginTop: "4rem", color: "var(--text-muted)", fontSize: "0.875rem" }}>

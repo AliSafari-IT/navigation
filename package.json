@@ -1,6 +1,6 @@
 {
   "name": "@asafarim/navigation",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Reusable, framework-agnostic React navigation components (navbar, sidebar, drawer, dropdown) for ASafariM apps and beyond.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -72,14 +72,14 @@
   ],
   "author": "ASafariM <ali@asafarim.com>",
   "license": "MIT",
-  "homepage": "https://github.com/AliSafari-IT/asafarim-digital/tree/main/packages/navigation#readme",
+  "homepage": "https://alisafari-it.github.io/navigation",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AliSafari-IT/asafarim-digital.git",
+    "url": "git+https://github.com/alisafari-it/navigation.git",
     "directory": "packages/navigation"
   },
   "bugs": {
-    "url": "https://github.com/AliSafari-IT/asafarim-digital/issues"
+    "url": "https://github.com/alisafari-it/navigation/issues"
   },
   "publishConfig": {
     "access": "public",

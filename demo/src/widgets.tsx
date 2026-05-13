@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
@@ -69,6 +69,47 @@ export function AvatarTrigger() {
       </span>
       <span style={{ fontSize: "0.875rem" }}>Ali ▾</span>
     </span>
+  );
+}
+
+export function CodeBlock({ code }: { code: string }) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function copy() {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true);
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => setCopied(false), 1800);
+    });
+  }
+
+  return (
+    <div className="demo-code">
+      <button
+        type="button"
+        className="demo-code-toggle"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        <span className="demo-code-chevron" data-open={open}>▶</span>
+        {open ? "Hide code" : "Show code"}
+      </button>
+      {open && (
+        <div className="demo-code-body">
+          <button
+            type="button"
+            className="demo-code-copy"
+            onClick={copy}
+            aria-label="Copy code"
+          >
+            {copied ? "✓ Copied" : "Copy"}
+          </button>
+          <pre className="demo-code-pre"><code>{code}</code></pre>
+        </div>
+      )}
+    </div>
   );
 }
 
