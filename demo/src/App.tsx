@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { SiteNav } from "./SiteNav";
+import { HomePage } from "./HomePage";
+import { GetStartedPage } from "./GetStartedPage";
 import {
   AppNavbar,
   AppSidebar,
@@ -235,6 +238,26 @@ const CODE_12 = `\
  * App
  * ────────────────────────────────────────────────────────── */
 export function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<SiteLayout><HomePage /></SiteLayout>} />
+      <Route path="/get-started" element={<SiteLayout><GetStartedPage /></SiteLayout>} />
+      <Route path="/demo" element={<DemoShowcase />} />
+      <Route path="*" element={<SiteLayout><HomePage /></SiteLayout>} />
+    </Routes>
+  );
+}
+
+function SiteLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <SiteNav />
+      <main>{children}</main>
+    </>
+  );
+}
+
+function DemoShowcase() {
   const { pathname } = useLocation();
   const [roles, setRoles] = useState<string[]>([]);
   const [permissions, setPermissions] = useState<string[]>([]);
@@ -246,6 +269,7 @@ export function App() {
       userRoles={roles}
       userPermissions={permissions}
     >
+      <SiteNav />
       <div className="demo-page">
         <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Logo />
@@ -575,16 +599,6 @@ export function App() {
           <CodeBlock code={CODE_12} />
         </section>
 
-        <footer style={{ marginTop: "4rem", color: "var(--text-muted)", fontSize: "0.875rem" }}>
-          Built with{" "}
-          <a href="https://www.npmjs.com/package/@asafarim/navigation">
-            @asafarim/navigation
-          </a>{" "}
-          ·{" "}
-          <a href="https://github.com/AliSafari-IT/asafarim-digital">
-            source
-          </a>
-        </footer>
       </div>
     </NavProvider>
   );
