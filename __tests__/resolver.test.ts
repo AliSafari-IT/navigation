@@ -90,6 +90,7 @@ describe("resolveNavigation", () => {
     const result = resolveNavigation({
       items: mockItems,
       currentApp: "portal" as AppCode,
+      user: { authenticated: true, roles: [], permissions: [] },
     });
     expect(result.items.some((item) => item.id === "5")).toBe(false); // edumatch only
     expect(result.items.some((item) => item.id === "2")).toBe(true); // portal
