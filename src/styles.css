@@ -51,6 +51,7 @@
   border-bottom: 1px solid var(--asaf-nav-border);
 }
 .asaf-nav-navbar__container {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -83,6 +84,21 @@
   gap: 0.5rem;
   margin-left: auto;
   flex-shrink: 0;
+}
+.asaf-nav-navbar__center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+  z-index: 1;
+}
+@media (max-width: 1023px) {
+  .asaf-nav-navbar__center {
+    display: none;
+  }
 }
 .asaf-nav-navbar__action-slot {
   display: inline-flex;

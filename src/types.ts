@@ -74,6 +74,13 @@ export type CommonNavProps = {
 
 export type AppNavbarProps = CommonNavProps & {
   logo?: React.ReactNode;
+  /**
+   * Optional center slot. Absolutely centered within the navbar container so
+   * it stays in the visual middle regardless of how much room the logo / nav /
+   * actions take. Hidden on narrow viewports (<1024px) to avoid overlap.
+   * Typical use: a global search / command-palette trigger.
+   */
+  center?: React.ReactNode;
   countryLangSelector?: React.ReactNode;
   themeToggler?: React.ReactNode;
   actions?: React.ReactNode;

@@ -15,6 +15,7 @@ import { AppDrawer } from "./AppDrawer";
  */
 export function AppNavbar({
   logo,
+  center,
   navItems = [],
   countryLangSelector,
   themeToggler,
@@ -116,6 +117,8 @@ export function AppNavbar({
               />
             </nav>
           )}
+
+          {center && <div className="asaf-nav-navbar__center">{center}</div>}
 
           <div className={cn("asaf-nav-navbar__actions", actionsClassName)}>
             {countryLangSelector && (
