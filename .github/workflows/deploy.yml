@@ -32,17 +32,13 @@ jobs:
         with:
           node-version: "22.13"
           cache: "pnpm"
-          cache-dependency-path: demo/pnpm-lock.yaml
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Install root dependencies
+      - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
       - name: Build package
         run: pnpm build
-
-      - name: Install demo dependencies
-        working-directory: demo
-        run: pnpm install --frozen-lockfile
 
       - name: Build demo
         working-directory: demo

@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@asafarim/country-language-selector": "^0.4.1",
-    "@asafarim/navigation": "link:..",
+    "@asafarim/navigation": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.0"
