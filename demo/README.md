@@ -35,3 +35,6 @@ While iterating on `../src`, run `pnpm --filter @asafarim/navigation dev` (tsup 
 10. Generic `AppNavMenu` (vertical)
 11. Shared state via `NavProvider` + `useNavState`
 12. Integration with [`@asafarim/country-language-selector`](https://www.npmjs.com/package/@asafarim/country-language-selector) (npm)
+13. Shared design-token themes, including light, dark, and high-contrast token modes
+
+The theme toggle updates `data-theme` on the document root. To preview high contrast, set `data-contrast="high"` on the document root; the navigation stylesheet consumes the corresponding design tokens.

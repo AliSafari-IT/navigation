@@ -309,19 +309,34 @@ const NAV_ITEMS: NavItem[] = [
 
 ---
 
-## Styling
+## Theming and design tokens
 
-The package ships a single `styles.css` you import once. All visual tokens are CSS variables and default to ASafariM tokens (`--color-surface`, `--color-text`, `--color-accent`, etc.). Override them on any parent element to fully re-theme the components, no Tailwind required.
+The package imports `@asafarim/design-tokens/css` from its stylesheet and maps the navigation components to the shared `--asm-*` tokens. Light and dark themes are selected with `data-theme`, and high-contrast mode with `data-contrast`:
 
-```css
-:root {
-  --color-accent: #6d28d9;
-  --color-surface: #fff;
-  --color-text: #111;
+```tsx
+import type { ReactNode } from "react";
+import "@asafarim/navigation/styles.css";
+
+export function ThemeRoot({ children }: { children: ReactNode }) {
+  return <div data-theme="dark" data-contrast="normal">{children}</div>;
 }
 ```
 
-Every component also accepts `className`, `itemClassName`, `menuClassName`, etc., for surgical overrides.
+Use `data-theme="light"` or `data-theme="dark"`, and `data-contrast="high"` when needed. You can also override the navigation aliases on any parent for a custom theme:
+
+```css
+.custom-navigation-theme {
+  --color-surface: var(--asm-color-purple-950);
+  --color-surface-muted: var(--asm-color-purple-900);
+  --color-text: var(--asm-color-neutral-0);
+  --color-text-muted: var(--asm-color-neutral-200);
+  --color-border: var(--asm-color-purple-700);
+  --color-accent: var(--asm-color-purple-400);
+  --color-accent-soft: var(--asm-color-purple-900);
+}
+```
+
+The token-driven defaults cover navigation surfaces, text, borders, accents, typography, spacing-related controls, radii, shadows, motion, and focus states. Every component also accepts `className`, `itemClassName`, `menuClassName`, and related props for surgical overrides.
 
 ---
 

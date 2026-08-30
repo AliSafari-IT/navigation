@@ -54,6 +54,9 @@ importers:
       '@asafarim/country-language-selector':
         specifier: ^0.4.1
         version: 0.4.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@asafarim/design-tokens':
+        specifier: 0.5.0
+        version: 0.5.0
       '@asafarim/navigation':
         specifier: workspace:*
         version: link:..
