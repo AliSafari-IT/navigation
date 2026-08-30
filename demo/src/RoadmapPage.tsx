@@ -1,4 +1,4 @@
-import { Component, lazy, Suspense, useState } from "react";
+import { Component, lazy, Suspense, useEffect, useState } from "react";
 import type { ErrorInfo, ReactNode } from "react";
 import type { ChangelogCategory, ChangelogEntry } from "@asafarim/changelog-timeline";
 import "@asafarim/changelog-timeline/css";
@@ -24,6 +24,7 @@ interface NavigationRoadmapItem {
   tags: string[];
   proposedApi?: string;
   issueUrl?: string;
+  issueNumber?: number;
   votes?: number;
 }
 
@@ -67,6 +68,7 @@ const navigationTimelineData: NavigationRoadmapItem[] = [
 
 document.documentElement.dataset.theme = "dark";`,
     issueUrl: "https://github.com/AliSafari-IT/navigation/issues/1",
+    issueNumber: 1,
     votes: 0,
   },
   {
@@ -84,6 +86,7 @@ document.documentElement.dataset.theme = "dark";`,
     tags: ["prefetch", "view-transitions"],
     proposedApi: `<Navigation prefetch="hover" />`,
     issueUrl: "https://github.com/AliSafari-IT/navigation/issues/2",
+    issueNumber: 2,
     votes: 0,
   },
   {
@@ -101,6 +104,7 @@ document.documentElement.dataset.theme = "dark";`,
     tags: ["rsc", "server-components"],
     proposedApi: `<NavProvider ssrMode="rsc" />`,
     issueUrl: "https://github.com/AliSafari-IT/navigation/issues/3",
+    issueNumber: 3,
     votes: 0,
   },
 ];
@@ -211,18 +215,49 @@ class ChangelogErrorBoundary extends Component<
   }
 }
 
+type GitHubIssue = {
+  reactions?: {
+    "+1"?: number;
+  };
+};
+
+const GITHUB_API_BASE = "https://api.github.com/repos/AliSafari-IT/navigation/issues";
+
 function RoadmapList({ items }: { items: NavigationRoadmapItem[] }) {
   const [open, setOpen] = useState<string | null>(null);
   const [votes, setVotes] = useState<Record<string, number>>(() =>
     Object.fromEntries(items.map((i) => [i.version, i.votes ?? 0]))
   );
 
+  useEffect(() => {
+    let cancelled = false;
+
+    Promise.all(
+      items
+        .filter((item) => item.issueNumber)
+        .map(async (item) => {
+          const response = await fetch(`${GITHUB_API_BASE}/${item.issueNumber}`);
+          if (!response.ok) {
+            throw new Error(`GitHub returned ${response.status}`);
+          }
+          const issue = (await response.json()) as GitHubIssue;
+          return [item.version, issue.reactions?.["+1"] ?? 0] as const;
+        })
+    )
+      .then((reactionCounts) => {
+        if (!cancelled) {
+          setVotes((current) => ({ ...current, ...Object.fromEntries(reactionCounts) }));
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, [items]);
+
   function toggle(version: string) {
     setOpen((current) => (current === version ? null : version));
-  }
-
-  function vote(version: string) {
-    setVotes((v) => ({ ...v, [version]: (v[version] ?? 0) + 1 }));
   }
 
   return (
@@ -283,13 +318,16 @@ function RoadmapList({ items }: { items: NavigationRoadmapItem[] }) {
                       Discuss on GitHub ↗
                     </a>
                   )}
-                  <button
-                    type="button"
-                    className="roadmap-vote-btn"
-                    onClick={() => vote(item.version)}
-                  >
-                    Vote for this feature ({votes[item.version] ?? 0})
-                  </button>
+                  {item.issueUrl && (
+                    <a
+                      href={item.issueUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="roadmap-vote-btn"
+                    >
+                      Vote on GitHub (+1) ({votes[item.version] ?? 0})
+                    </a>
+                  )}
                 </div>
               )}
             </div>
