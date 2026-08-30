@@ -40,6 +40,7 @@
     "prepublishOnly": "pnpm run build && pnpm run test"
   },
   "dependencies": {
+    "@asafarim/design-tokens": "0.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -92,6 +93,8 @@
     "node": ">=18"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

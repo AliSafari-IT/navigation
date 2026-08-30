@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@asafarim/design-tokens':
+        specifier: 0.5.0
+        version: 0.5.0
       react:
         specifier: ^19.0.0
         version: 19.2.6

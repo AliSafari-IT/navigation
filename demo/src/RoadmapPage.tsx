@@ -29,7 +29,7 @@ interface NavigationRoadmapItem {
 
 const navigationTimelineData: NavigationRoadmapItem[] = [
   {
-    version: "1.0.0",
+    version: "0.1.0",
     date: "June 2026",
     isoDate: "2026-06-01",
     status: "released",
@@ -40,7 +40,7 @@ const navigationTimelineData: NavigationRoadmapItem[] = [
     tags: ["routing", "breadcrumbs"],
   },
   {
-    version: "1.1.0",
+    version: "0.3.0",
     date: "August 2026",
     isoDate: "2026-08-01",
     status: "current",
@@ -51,24 +51,26 @@ const navigationTimelineData: NavigationRoadmapItem[] = [
     tags: ["dynamic-routes", "performance"],
   },
   {
-    version: "1.2.0",
+    version: "0.4.0",
     date: "Q4 2026",
     isoDate: "2026-10-01",
     status: "planned",
-    title: "Smart Prefetching & View Transitions",
+    title: "Theme Support with Design Tokens",
     details: [
-      "Hover-based data prefetching",
-      "Native View Transitions API wrapper",
+      "Token-driven light and dark navigation surfaces",
+      "High-contrast and custom theme overrides",
     ],
-    icon: "🛠️",
+    icon: "🎨",
     category: "feature",
-    tags: ["prefetch", "view-transitions"],
-    proposedApi: `<Navigation prefetch="hover" />`,
+    tags: ["themes", "design-tokens", "dark-mode"],
+    proposedApi: `import "@asafarim/design-tokens/css";
+
+document.documentElement.dataset.theme = "dark";`,
     issueUrl: "https://github.com/AliSafari-IT/navigation/issues/1",
     votes: 0,
   },
   {
-    version: "2.0.0",
+    version: "1.0.0",
     date: "2027",
     isoDate: "2027-01-01",
     status: "ideation",

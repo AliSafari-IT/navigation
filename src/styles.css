@@ -1,17 +1,19 @@
+@import "@asafarim/design-tokens/css";
+
 /* ============================================================
  * @asafarim/navigation — scoped styles
  * Override any token via CSS variables on a parent of these components.
  * ============================================================ */
 
 :where(.asaf-nav-navbar, .asaf-nav-sidebar, .asaf-nav-drawer, .asaf-nav-dropdown, .asaf-nav-menu) {
-  --asaf-nav-bg: var(--color-surface, #ffffff);
-  --asaf-nav-bg-alt: var(--color-surface-muted, #f7f7f8);
-  --asaf-nav-fg: var(--color-text, #111827);
-  --asaf-nav-fg-muted: var(--color-text-muted, #6b7280);
-  --asaf-nav-border: var(--color-border, #e5e7eb);
-  --asaf-nav-border-strong: var(--color-border-strong, #d1d5db);
-  --asaf-nav-accent: var(--color-accent, #2563eb);
-  --asaf-nav-accent-soft: var(--color-accent-soft, rgba(37, 99, 235, 0.1));
+  --asaf-nav-bg: var(--color-surface, var(--asm-color-surface, #ffffff));
+  --asaf-nav-bg-alt: var(--color-surface-muted, var(--asm-color-surface-muted, #f7f7f8));
+  --asaf-nav-fg: var(--color-text, var(--asm-color-text, #111827));
+  --asaf-nav-fg-muted: var(--color-text-muted, var(--asm-color-text-muted, #6b7280));
+  --asaf-nav-border: var(--color-border, var(--asm-color-border, #e5e7eb));
+  --asaf-nav-border-strong: var(--color-border-strong, var(--asm-color-border, #d1d5db));
+  --asaf-nav-accent: var(--color-accent, var(--asm-color-brand-primary-600, #2563eb));
+  --asaf-nav-accent-soft: var(--color-accent-soft, var(--asm-color-primary-50, rgba(37, 99, 235, 0.1)));
   --asaf-nav-radius: 0.5rem;
   --asaf-nav-radius-sm: 0.375rem;
   --asaf-nav-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06);
