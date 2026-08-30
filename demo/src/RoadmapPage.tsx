@@ -1,8 +1,14 @@
-import { useState } from "react";
-import { ChangelogTimeline } from "@asafarim/changelog-timeline";
+import { Component, lazy, Suspense, useState } from "react";
+import type { ErrorInfo, ReactNode } from "react";
 import type { ChangelogCategory, ChangelogEntry } from "@asafarim/changelog-timeline";
 import "@asafarim/changelog-timeline/css";
 import { CodeBlock } from "./widgets";
+
+const ChangelogTimeline = lazy(() =>
+  import("@asafarim/changelog-timeline").then(({ ChangelogTimeline: Timeline }) => ({
+    default: Timeline,
+  }))
+);
 
 type RoadmapStatus = "released" | "current" | "planned" | "ideation";
 
@@ -134,14 +140,18 @@ export function RoadmapPage() {
 
       {view !== "roadmap" && (
         <section className="roadmap-section">
-          <ChangelogTimeline
-            entries={history.map(toChangelogEntry)}
-            title="Changelog"
-            subtitle="Shipped updates for @asafarim/navigation"
-            layout="left"
-            showPagination={false}
-            maxVisible={10}
-          />
+          <ChangelogErrorBoundary>
+            <Suspense fallback={<div className="timeline-loading">Loading changelog…</div>}>
+              <ChangelogTimeline
+                entries={history.map(toChangelogEntry)}
+                title="Changelog"
+                subtitle="Shipped updates for @asafarim/navigation"
+                layout="left"
+                showPagination={false}
+                maxVisible={10}
+              />
+            </Suspense>
+          </ChangelogErrorBoundary>
         </section>
       )}
 
@@ -153,6 +163,33 @@ export function RoadmapPage() {
       )}
     </div>
   );
+}
+
+class ChangelogErrorBoundary extends Component<
+  { children: ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, _info: ErrorInfo) {
+    console.error("Unable to load @asafarim/changelog-timeline", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="timeline-fallback" role="status">
+          <strong>Changelog preview unavailable</strong>
+          <span>The roadmap remains available below.</span>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
 }
 
 function RoadmapList({ items }: { items: NavigationRoadmapItem[] }) {

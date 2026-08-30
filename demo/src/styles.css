@@ -878,6 +878,22 @@ a {
 .roadmap-section {
   margin-bottom: 3rem;
 }
+.timeline-loading,
+.timeline-fallback {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--bg-elev);
+  color: var(--text-muted);
+}
+.timeline-fallback {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.timeline-fallback strong {
+  color: var(--text);
+}
 .roadmap-section__title {
   font-size: 1.5rem;
   font-weight: 800;
