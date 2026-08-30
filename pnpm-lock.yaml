@@ -45,6 +45,9 @@ importers:
 
   demo:
     dependencies:
+      '@asafarim/changelog-timeline':
+        specifier: 0.6.0
+        version: 0.6.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@asafarim/country-language-selector':
         specifier: ^0.4.1
         version: 0.4.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -82,11 +85,21 @@ packages:
   '@adobe/css-tools@4.4.4':
     resolution: {integrity: sha512-Elp+iwUx5rN5+Y8xLt5/GRoG20WGoDCQ/1Fb+1LiGtvwbDavuSk0jhD/eZdckHAuzcDzccnkv+rEjyWfRx18gg==}
 
+  '@asafarim/changelog-timeline@0.6.0':
+    resolution: {integrity: sha512-5lhsg/7vSGPye2slvmsfHcLVLk9ubgZuDdwMRLMyYZayDLUY9yNe5u8DPciNxYFXDDv+mqALAqTskKUHvJ8LQg==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+
   '@asafarim/country-language-selector@0.4.1':
     resolution: {integrity: sha512-Wg0KDpdXltrheix8wTmicb4CfsuI2hlGXY7cMYF6acD5C5F080wrcowP8bFQfOxfcFMo0LPo0HAMotvumizJPg==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
+
+  '@asafarim/design-tokens@0.5.0':
+    resolution: {integrity: sha512-q7NguuMVBgaToX1EEOeraAiBebqKhidKKUohsMpKScHJh7mv/5igQcpDI+xdL479pCy9Kx5yUu0dhyNX2Gro+Q==}
+    engines: {node: '>=16'}
 
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
@@ -1543,10 +1556,18 @@ snapshots:
 
   '@adobe/css-tools@4.4.4': {}
 
+  '@asafarim/changelog-timeline@0.6.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+    dependencies:
+      '@asafarim/design-tokens': 0.5.0
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
+
   '@asafarim/country-language-selector@0.4.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
+
+  '@asafarim/design-tokens@0.5.0': {}
 
   '@asamuzakjp/css-color@3.2.0':
     dependencies:

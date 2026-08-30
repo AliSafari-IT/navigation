@@ -4,6 +4,7 @@ const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/demo", label: "Components" },
   { to: "/get-started", label: "Get Started" },
+  { to: "/roadmap", label: "Roadmap" },
 ];
 
 export function SiteNav() {

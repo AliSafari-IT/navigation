@@ -3,6 +3,7 @@ import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { SiteNav } from "./SiteNav";
 import { HomePage } from "./HomePage";
 import { GetStartedPage } from "./GetStartedPage";
+import { RoadmapPage } from "./RoadmapPage";
 import {
   AppNavbar,
   AppSidebar,
@@ -242,6 +243,7 @@ export function App() {
     <Routes>
       <Route path="/" element={<SiteLayout><HomePage /></SiteLayout>} />
       <Route path="/get-started" element={<SiteLayout><GetStartedPage /></SiteLayout>} />
+      <Route path="/roadmap" element={<SiteLayout><RoadmapPage /></SiteLayout>} />
       <Route path="/demo" element={<DemoShowcase />} />
       <Route path="*" element={<SiteLayout><HomePage /></SiteLayout>} />
     </Routes>
