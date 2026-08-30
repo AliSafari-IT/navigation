@@ -1,3 +1,5 @@
+@import "@asafarim/design-tokens/css";
+
 /* ── Site-wide nav bar ────────────────────────────────────── */
 .site-nav {
   position: sticky;
@@ -541,35 +543,14 @@
 
 /* ── Demo-only styles ─────────────────────────────────────── */
 :root {
-  --bg: #f8fafc;
-  --bg-elev: #ffffff;
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --accent: #2563eb;
-  --accent-soft: rgba(37, 99, 235, 0.1);
-  --success: #16a34a;
-
-  /* Map demo tokens onto @asafarim/navigation CSS variables */
-  --color-surface: var(--bg-elev);
-  --color-surface-muted: var(--bg);
-  --color-text: var(--text);
-  --color-text-muted: var(--text-muted);
-  --color-border: var(--border);
-  --color-border-strong: #cbd5e1;
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-}
-
-[data-theme="dark"] {
-  --bg: #0b1220;
-  --bg-elev: #111827;
-  --text: #f1f5f9;
-  --text-muted: #94a3b8;
-  --border: #1f2937;
-  --accent: #60a5fa;
-  --accent-soft: rgba(96, 165, 250, 0.18);
-  --color-border-strong: #334155;
+  --bg: var(--color-surface, var(--asm-color-bg));
+  --bg-elev: var(--color-surface, var(--asm-color-surface));
+  --text: var(--color-text, var(--asm-color-text));
+  --text-muted: var(--color-text-muted, var(--asm-color-text-muted));
+  --border: var(--color-border, var(--asm-color-border));
+  --accent: var(--color-accent, var(--asm-color-brand-primary-600));
+  --accent-soft: var(--color-accent-soft, var(--asm-color-primary-50));
+  --success: var(--asm-color-success-600);
 }
 
 * {

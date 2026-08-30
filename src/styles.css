@@ -6,22 +6,22 @@
  * ============================================================ */
 
 :where(.asaf-nav-navbar, .asaf-nav-sidebar, .asaf-nav-drawer, .asaf-nav-dropdown, .asaf-nav-menu) {
-  --asaf-nav-bg: var(--color-surface, var(--asm-color-surface, #ffffff));
-  --asaf-nav-bg-alt: var(--color-surface-muted, var(--asm-color-surface-muted, #f7f7f8));
-  --asaf-nav-fg: var(--color-text, var(--asm-color-text, #111827));
-  --asaf-nav-fg-muted: var(--color-text-muted, var(--asm-color-text-muted, #6b7280));
-  --asaf-nav-border: var(--color-border, var(--asm-color-border, #e5e7eb));
-  --asaf-nav-border-strong: var(--color-border-strong, var(--asm-color-border, #d1d5db));
-  --asaf-nav-accent: var(--color-accent, var(--asm-color-brand-primary-600, #2563eb));
-  --asaf-nav-accent-soft: var(--color-accent-soft, var(--asm-color-primary-50, rgba(37, 99, 235, 0.1)));
-  --asaf-nav-radius: 0.5rem;
-  --asaf-nav-radius-sm: 0.375rem;
-  --asaf-nav-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06);
-  --asaf-nav-shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.12);
-  --asaf-nav-font: inherit;
-  --asaf-nav-transition: 150ms ease;
-  --asaf-nav-z-drawer: 1000;
-  --asaf-nav-z-dropdown: 1100;
+  --asaf-nav-bg: var(--color-surface, var(--asm-color-surface));
+  --asaf-nav-bg-alt: var(--color-surface-muted, var(--asm-color-surface-muted));
+  --asaf-nav-fg: var(--color-text, var(--asm-color-text));
+  --asaf-nav-fg-muted: var(--color-text-muted, var(--asm-color-text-muted));
+  --asaf-nav-border: var(--color-border, var(--asm-color-border));
+  --asaf-nav-border-strong: var(--color-border-strong, var(--asm-color-border));
+  --asaf-nav-accent: var(--color-accent, var(--asm-color-brand-primary-600));
+  --asaf-nav-accent-soft: var(--color-accent-soft, var(--asm-color-primary-50));
+  --asaf-nav-radius: var(--asm-radius-md);
+  --asaf-nav-radius-sm: var(--asm-radius-sm);
+  --asaf-nav-shadow: var(--asm-effect-shadow-sm);
+  --asaf-nav-shadow-lg: var(--asm-effect-shadow-lg);
+  --asaf-nav-font: var(--asm-font-family-base);
+  --asaf-nav-transition: var(--asm-motion-duration-normal) var(--asm-motion-easing-standard);
+  --asaf-nav-z-drawer: var(--asm-z-overlay);
+  --asaf-nav-z-dropdown: var(--asm-z-dropdown);
 
   box-sizing: border-box;
   font-family: var(--asaf-nav-font);
@@ -276,7 +276,7 @@
   font-weight: 600;
   border-radius: 999px;
   background: var(--asaf-nav-accent);
-  color: #fff;
+  color: var(--asm-color-button-primary-text);
 }
 .asaf-nav-item__toggle {
   width: 1.75rem;
@@ -472,9 +472,9 @@
 .asaf-nav-drawer__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(2px);
-  animation: asaf-nav-fade-in 150ms ease;
+  background: var(--asm-color-overlay-scrim);
+  backdrop-filter: blur(var(--asm-effect-blur-sm));
+  animation: asaf-nav-fade-in var(--asm-motion-duration-normal) var(--asm-motion-easing-standard);
 }
 .asaf-nav-drawer {
   position: absolute;
