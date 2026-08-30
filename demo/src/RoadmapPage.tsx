@@ -1,14 +1,7 @@
-import { Component, lazy, Suspense, useEffect, useState } from "react";
-import type { ErrorInfo, ReactNode } from "react";
-import type { ChangelogCategory, ChangelogEntry } from "@asafarim/changelog-timeline";
+import { useEffect, useState } from "react";
+import type { ChangelogCategory } from "@asafarim/changelog-timeline";
 import "@asafarim/changelog-timeline/css";
 import { CodeBlock } from "./widgets";
-
-const ChangelogTimeline = lazy(() =>
-  import("@asafarim/changelog-timeline").then(({ ChangelogTimeline: Timeline }) => ({
-    default: Timeline,
-  }))
-);
 
 type RoadmapStatus = "released" | "current" | "planned" | "ideation";
 
@@ -27,6 +20,16 @@ interface NavigationRoadmapItem {
   issueNumber?: number;
   votes?: number;
 }
+
+type ChangelogEntry = {
+  id: string;
+  version: string;
+  date: string;
+  category: ChangelogCategory;
+  title: string;
+  description: string;
+  tags: string[];
+};
 
 const navigationTimelineData: NavigationRoadmapItem[] = [
   {
@@ -121,6 +124,74 @@ function toChangelogEntry(item: NavigationRoadmapItem): ChangelogEntry {
   };
 }
 
+const categoryIcons: Record<ChangelogCategory, string> = {
+  feature: "✨",
+  fix: "🐛",
+  improvement: "⚡",
+  security: "🔒",
+  breaking: "⚠️",
+  docs: "📚",
+};
+
+function ChangelogTimeline({ entries, title, subtitle }: {
+  entries: ChangelogEntry[];
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <div className="changelog-timeline changelog-timeline--left">
+      <div className="timeline-header">
+        <h1 className="timeline-title">{title}</h1>
+        <p className="timeline-subtitle">{subtitle}</p>
+      </div>
+      <div className="timeline-container">
+        <div className="timeline-line" />
+        {entries.map((entry) => (
+          <div className="timeline-item" key={entry.id}>
+            <div
+              className="timeline-dot"
+              style={{ color: `var(--category-${entry.category}-icon)` }}
+            />
+            <div className="timeline-card">
+              <div className="card-header">
+                <span className="category-icon">{categoryIcons[entry.category]}</span>
+                <div className="card-content">
+                  <h3 className="card-title">{entry.title}</h3>
+                  <div className="card-meta">
+                    <span
+                      className="category-label"
+                      style={{
+                        background: `var(--category-${entry.category}-bg)`,
+                        color: `var(--category-${entry.category}-text)`,
+                      }}
+                    >
+                      {entry.category}
+                    </span>
+                    <span aria-hidden="true">•</span>
+                    <span>
+                      {new Date(entry.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                  </div>
+                  <p className="card-description">{entry.description}</p>
+                  <div className="card-tags">
+                    {entry.tags.map((tag) => (
+                      <span className="tag" key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function RoadmapPage() {
   const [view, setView] = useState<"history" | "roadmap" | "all">("all");
 
@@ -163,18 +234,11 @@ export function RoadmapPage() {
 
       {view !== "roadmap" && (
         <section className="roadmap-section">
-          <ChangelogErrorBoundary>
-            <Suspense fallback={<div className="timeline-loading">Loading changelog…</div>}>
-              <ChangelogTimeline
-                entries={history.map(toChangelogEntry)}
-                title="Changelog"
-                subtitle="Shipped updates for @asafarim/navigation"
-                layout="left"
-                showPagination={false}
-                maxVisible={10}
-              />
-            </Suspense>
-          </ChangelogErrorBoundary>
+          <ChangelogTimeline
+            entries={history.map(toChangelogEntry)}
+            title="Changelog"
+            subtitle="Shipped updates for @asafarim/navigation"
+          />
         </section>
       )}
 
@@ -186,33 +250,6 @@ export function RoadmapPage() {
       )}
     </div>
   );
-}
-
-class ChangelogErrorBoundary extends Component<
-  { children: ReactNode },
-  { hasError: boolean }
-> {
-  state = { hasError: false };
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, _info: ErrorInfo) {
-    console.error("Unable to load @asafarim/changelog-timeline", error);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="timeline-fallback" role="status">
-          <strong>Changelog preview unavailable</strong>
-          <span>The roadmap remains available below.</span>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
 }
 
 type GitHubIssue = {
