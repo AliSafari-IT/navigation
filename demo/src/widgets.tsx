@@ -2,46 +2,59 @@ import { useEffect, useRef, useState } from "react";
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <span className="demo-hero" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
-      <span
-        aria-hidden="true"
-        style={{
-          width: 24,
-          height: 24,
-          borderRadius: 6,
-          background: "linear-gradient(135deg,#2563eb,#7c3aed)",
-          color: "white",
-          fontWeight: 700,
-          fontSize: 12,
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        N
-      </span>
+    <span className="demo-hero demo-logo">
+      <svg className="demo-logo__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="2" y="2" width="28" height="28" rx="10" fill="var(--accent)" />
+        <path
+          d="M16 6.5 18.9 13l6.6 2.9-6.6 2.9L16 25.5l-2.9-6.7L6.5 16l6.6-3L16 6.5Z"
+          fill="var(--bg-elev)"
+        />
+        <circle cx="16" cy="16" r="2.4" fill="var(--accent)" />
+      </svg>
       {!compact && <span>Navigation</span>}
     </span>
   );
 }
 
-/* Tiny theme toggle that flips data-theme on <html> */
+const THEME_STORAGE_KEY = "asafarim-navigation-theme";
+
+type Theme = "light" | "dark";
+
+function getInitialTheme(): Theme {
+  const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+  if (storedTheme === "dark" || storedTheme === "light") return storedTheme;
+
+  return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+}
+
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">(() =>
-    (document.documentElement.getAttribute("data-theme") as "light" | "dark") ?? "light"
-  );
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+
+  useEffect(() => {
+    const syncTheme = () => {
+      const nextTheme = document.documentElement.getAttribute("data-theme");
+      if (nextTheme === "dark" || nextTheme === "light") setTheme(nextTheme);
+    };
+    window.addEventListener("themechange", syncTheme);
+    return () => window.removeEventListener("themechange", syncTheme);
+  }, []);
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    window.dispatchEvent(new Event("themechange"));
   }, [theme]);
+
   return (
     <button
       type="button"
-      className="demo-btn"
+      className="demo-btn theme-toggle"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-      title="Toggle theme"
+      title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
-      {theme === "light" ? "🌙" : "☀️"}
+      <span aria-hidden="true">{theme === "light" ? "☾" : "☀"}</span>
+      <span className="theme-toggle__label">{theme === "light" ? "Dark" : "Light"}</span>
     </button>
   );
 }

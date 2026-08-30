@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Logo, ThemeToggle } from "./widgets";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
@@ -9,6 +11,7 @@ const NAV_LINKS = [
 
 export function SiteNav() {
   const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   function isActive(to: string) {
     return to === "/" ? pathname === "/" : pathname.startsWith(to);
@@ -17,16 +20,17 @@ export function SiteNav() {
   return (
     <nav className="site-nav">
       <Link to="/" className="site-nav__brand" aria-label="Home">
-        <span className="site-nav__logo" aria-hidden="true">N</span>
+        <Logo compact />
         <span className="site-nav__name">@asafarim/navigation</span>
       </Link>
 
-      <ul className="site-nav__links" role="list">
+      <ul className={`site-nav__links${menuOpen ? " site-nav__links--open" : ""}`} role="list">
         {NAV_LINKS.map(({ to, label }) => (
           <li key={to}>
             <Link
               to={to}
               className={`site-nav__link${isActive(to) ? " site-nav__link--active" : ""}`}
+              onClick={() => setMenuOpen(false)}
             >
               {label}
             </Link>
@@ -35,6 +39,7 @@ export function SiteNav() {
       </ul>
 
       <div className="site-nav__actions">
+        <ThemeToggle />
         <a
           href="https://github.com/AliSafari-IT/navigation"
           target="_blank"
@@ -62,6 +67,15 @@ export function SiteNav() {
         >
           npm
         </a>
+        <button
+          type="button"
+          className="site-nav__menu-toggle"
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
+        </button>
       </div>
     </nav>
   );

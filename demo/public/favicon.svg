@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>Navigation</title>
+  <style>
+    :root {
+      --logo-accent: #304FFE;
+      --logo-surface: #FFFFFF;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --logo-accent: #6B82FF;
+        --logo-surface: #0F172A;
+      }
+    }
+  </style>
+  <rect x="2" y="2" width="28" height="28" rx="10" fill="var(--logo-accent)" />
+  <path
+    d="M16 6.5 18.9 13l6.6 2.9-6.6 2.9L16 25.5l-2.9-6.7L6.5 16l6.6-3L16 6.5Z"
+    fill="var(--logo-surface)"
+  />
+  <circle cx="16" cy="16" r="2.4" fill="var(--logo-accent)" />
+</svg>
