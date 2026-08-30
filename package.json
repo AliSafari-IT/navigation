@@ -35,7 +35,7 @@
     "test:watch": "vitest",
     "lint": "tsc --noEmit",
     "prepare": "pnpm i && pnpm build",
-    "demo": "pnpm build && pnpm --filter @asafarim/navigation-demo run dev",
+    "demo": "pnpm build && node scripts/demo.mjs",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run build && pnpm run test"
   },
