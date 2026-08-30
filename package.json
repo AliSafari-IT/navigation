@@ -1,6 +1,6 @@
 {
   "name": "@asafarim/navigation",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Reusable, framework-agnostic React navigation components (navbar, sidebar, drawer, dropdown) for ASafariM apps and beyond.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -34,6 +34,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "tsc --noEmit",
+    "prepare": "pnpm i && pnpm build",
+    "demo": "pnpm build && pnpm --filter @asafarim/navigation-demo run dev",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run build && pnpm run test"
   },
