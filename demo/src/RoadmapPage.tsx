@@ -232,22 +232,24 @@ export function RoadmapPage() {
         ))}
       </div>
 
-      {view !== "roadmap" && (
-        <section className="roadmap-section">
-          <ChangelogTimeline
-            entries={history.map(toChangelogEntry)}
-            title="Changelog"
-            subtitle="Shipped updates for @asafarim/navigation"
-          />
-        </section>
-      )}
+      <div className={`roadmap-columns roadmap-columns--${view}`}>
+        {view !== "roadmap" && (
+          <section className="roadmap-section roadmap-section--history">
+            <ChangelogTimeline
+              entries={history.map(toChangelogEntry)}
+              title="Changelog"
+              subtitle="Shipped updates for @asafarim/navigation"
+            />
+          </section>
+        )}
 
-      {view !== "history" && (
-        <section className="roadmap-section">
-          <h2 className="roadmap-section__title">Roadmap</h2>
-          <RoadmapList items={future} />
-        </section>
-      )}
+        {view !== "history" && (
+          <section className="roadmap-section roadmap-section--future">
+            <h2 className="roadmap-section__title">Roadmap</h2>
+            <RoadmapList items={future} />
+          </section>
+        )}
+      </div>
     </div>
   );
 }
