@@ -34,7 +34,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "tsc --noEmit",
-    "prepare": "pnpm i && pnpm build",
+    "prepare": "pnpm build",
     "demo": "pnpm build && node scripts/demo.mjs",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run build && pnpm run test"
