@@ -66,7 +66,7 @@ const navigationTimelineData: NavigationRoadmapItem[] = [
     proposedApi: `import "@asafarim/design-tokens/css";
 
 document.documentElement.dataset.theme = "dark";`,
-    issueUrl: "https://github.com/AliSafari-IT/navigation/issues",
+    issueUrl: "https://github.com/AliSafari-IT/navigation/issues/1",
     votes: 0,
   },
   {
@@ -83,7 +83,7 @@ document.documentElement.dataset.theme = "dark";`,
     category: "feature",
     tags: ["prefetch", "view-transitions"],
     proposedApi: `<Navigation prefetch="hover" />`,
-    issueUrl: "https://github.com/AliSafari-IT/navigation/issues",
+    issueUrl: "https://github.com/AliSafari-IT/navigation/issues/2",
     votes: 0,
   },
   {
@@ -100,7 +100,7 @@ document.documentElement.dataset.theme = "dark";`,
     category: "docs",
     tags: ["rsc", "server-components"],
     proposedApi: `<NavProvider ssrMode="rsc" />`,
-    issueUrl: "https://github.com/AliSafari-IT/navigation/issues/2",
+    issueUrl: "https://github.com/AliSafari-IT/navigation/issues/3",
     votes: 0,
   },
 ];
