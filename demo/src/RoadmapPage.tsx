@@ -52,10 +52,10 @@ const navigationTimelineData: NavigationRoadmapItem[] = [
     tags: ["dynamic-routes", "performance"],
   },
   {
-    version: "0.4.0",
-    date: "Q4 2026",
-    isoDate: "2026-10-01",
-    status: "planned",
+    version: "0.4.1",
+    date: "August 30, 2026",
+    isoDate: "2026-08-30",
+    status: "released",
     title: "Theme Support with Design Tokens",
     details: [
       "Token-driven light and dark navigation surfaces",
