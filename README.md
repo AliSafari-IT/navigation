@@ -21,15 +21,10 @@ The package contains **no business logic, no auth logic, and no app-specific rou
 
 ## Install
 
-It is already part of the workspace. In any app, add it as a workspace dependency:
+Install the published package from npm:
 
-```jsonc
-// apps/<app>/package.json
-{
-  "dependencies": {
-    "@asafarim/navigation": "workspace:*"
-  }
-}
+```bash
+npm install @asafarim/navigation react react-dom
 ```
 
 Then import the stylesheet once at your application root:
