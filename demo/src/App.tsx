@@ -286,18 +286,18 @@ function DemoShowcase() {
         <nav className="demo-toc">
           <h3>Sections</h3>
           <ol>
-            <li><a href="#topbar-simple">1. Simple topbar</a></li>
-            <li><a href="#topbar-full">2. Topbar with all slots</a></li>
-            <li><a href="#topbar-role">3. Role-based topbar</a></li>
-            <li><a href="#topbar-router">4. React Router integration</a></li>
-            <li><a href="#topbar-custom-item">5. Custom renderItem</a></li>
-            <li><a href="#drawer">6. Mobile drawer (controlled)</a></li>
-            <li><a href="#sidebar">7. Sidebar</a></li>
-            <li><a href="#sidebar-rail">8. Sidebar collapsible rail</a></li>
-            <li><a href="#dropdown">9. Standalone dropdown</a></li>
-            <li><a href="#menu">10. Generic AppNavMenu</a></li>
-            <li><a href="#provider">11. NavProvider + useNavState</a></li>
-            <li><a href="#nested-with-country">12. With CountryLanguageSelector</a></li>
+            <li><a href="#topbar-simple">Simple topbar</a></li>
+            <li><a href="#topbar-full">Topbar with all slots</a></li>
+            <li><a href="#topbar-role">Role-based topbar</a></li>
+            <li><a href="#topbar-router">React Router integration</a></li>
+            <li><a href="#topbar-custom-item">Custom renderItem</a></li>
+            <li><a href="#drawer">Mobile drawer (controlled)</a></li>
+            <li><a href="#sidebar">Sidebar</a></li>
+            <li><a href="#sidebar-rail">Sidebar collapsible rail</a></li>
+            <li><a href="#dropdown">Standalone dropdown</a></li>
+            <li><a href="#menu">Generic AppNavMenu</a></li>
+            <li><a href="#provider">NavProvider + useNavState</a></li>
+            <li><a href="#nested-with-country">With CountryLanguageSelector</a></li>
           </ol>
         </nav>
 
