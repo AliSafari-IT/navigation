@@ -27,6 +27,15 @@ describe("AppNavbar", () => {
     expect(screen.getByRole("link", { name: "Docs" })).toBeInTheDocument();
   });
 
+  it("tags always-expanded so its links stay visible on narrow screens", () => {
+    const { container, rerender } = render(
+      <AppNavbar navItems={items} responsiveMode="always-expanded" />
+    );
+    expect(container.querySelector("header")).toHaveClass("asaf-nav-navbar--always-expanded");
+    rerender(<AppNavbar navItems={items} responsiveMode="always-collapsed" />);
+    expect(container.querySelector("header")).not.toHaveClass("asaf-nav-navbar--always-expanded");
+  });
+
   it("marks an item active via currentPath", () => {
     render(
       <AppNavbar navItems={items} currentPath="/docs" responsiveMode="always-expanded" />
