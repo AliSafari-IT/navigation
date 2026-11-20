@@ -244,7 +244,7 @@ export function App() {
       <Route path="/" element={<SiteLayout><HomePage /></SiteLayout>} />
       <Route path="/get-started" element={<SiteLayout><GetStartedPage /></SiteLayout>} />
       <Route path="/roadmap" element={<SiteLayout><RoadmapPage /></SiteLayout>} />
-      <Route path="/demo" element={<DemoShowcase />} />
+      <Route path="/demo/*" element={<DemoShowcase />} />
       <Route path="*" element={<SiteLayout><HomePage /></SiteLayout>} />
     </Routes>
   );
@@ -259,15 +259,45 @@ function SiteLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
+/* ──────────────────────────────────────────────────────────
+ * The showcase lives at /demo. Its sample menus link to app
+ * routes such as /inbox, which this site does not have: followed
+ * as-is they left the showcase for the home page, so every menu
+ * click looked dead. Inside the showcase the sample routes are
+ * nested under /demo (/inbox -> /demo/inbox) and the active item
+ * is resolved against the path without that prefix.
+ * ────────────────────────────────────────────────────────── */
+const DEMO_BASE = "/demo";
+
+function toDemoRoute(href: string): string {
+  return href === "/" ? DEMO_BASE : `${DEMO_BASE}${href}`;
+}
+
+function fromDemoRoute(pathname: string): string {
+  const rest = pathname.slice(DEMO_BASE.length);
+  return rest === "" ? "/" : rest;
+}
+
+const demoRenderLink: RenderLink = (props) => {
+  const { item, children } = props;
+  if (!item.href) return <>{children}</>;
+  if (item.external || /^https?:\/\//.test(item.href)) return renderLink(props);
+  return (
+    <Link to={toDemoRoute(item.href)} className="asaf-nav-link" preventScrollReset>
+      {children}
+    </Link>
+  );
+};
+
 function DemoShowcase() {
-  const { pathname } = useLocation();
+  const pathname = fromDemoRoute(useLocation().pathname);
   const [roles, setRoles] = useState<string[]>([]);
   const [permissions, setPermissions] = useState<string[]>([]);
 
   return (
     <NavProvider
       currentPath={pathname}
-      renderLink={renderLink}
+      renderLink={demoRenderLink}
       userRoles={roles}
       userPermissions={permissions}
     >

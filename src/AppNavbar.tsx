@@ -82,6 +82,7 @@ export function AppNavbar({
     elevated && "asaf-nav-navbar--elevated",
     bordered && "asaf-nav-navbar--bordered",
     compact && "asaf-nav-navbar--compact",
+    responsiveMode === "always-expanded" && "asaf-nav-navbar--always-expanded",
     className
   );
 

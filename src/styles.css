@@ -567,4 +567,10 @@
   .asaf-nav-navbar__nav {
     display: none;
   }
+  /* responsiveMode="always-expanded" promises inline links at every width:
+     keep them visible (the horizontal menu scrolls) instead of hiding them
+     with no hamburger to reach them. */
+  .asaf-nav-navbar--always-expanded .asaf-nav-navbar__nav {
+    display: flex;
+  }
 }
